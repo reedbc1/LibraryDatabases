@@ -1,0 +1,241 @@
+:root {
+  --bg: #f5efe4;
+  --panel: rgba(255, 252, 246, 0.88);
+  --panel-border: rgba(92, 73, 46, 0.14);
+  --text: #1e1a16;
+  --muted: #66584a;
+  --accent: #0e5a47;
+  --accent-strong: #093a2f;
+  --accent-soft: #d7efe6;
+  --shadow: 0 22px 60px rgba(76, 58, 32, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 219, 169, 0.7), transparent 30%),
+    radial-gradient(circle at right 15%, rgba(136, 194, 175, 0.45), transparent 25%),
+    linear-gradient(180deg, #f9f3e8 0%, var(--bg) 48%, #efe5d5 100%);
+}
+
+.page-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.hero {
+  padding: 32px;
+  border: 1px solid var(--panel-border);
+  border-radius: 28px;
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0;
+  max-width: 11ch;
+  font-family: "Source Serif 4", serif;
+  font-size: clamp(2.7rem, 5vw, 4.6rem);
+  line-height: 0.95;
+}
+
+.lede {
+  max-width: 700px;
+  margin: 18px 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.search-form input {
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(62, 47, 27, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  font: inherit;
+  color: var(--text);
+}
+
+.search-form input:focus,
+.search-form button:focus,
+.result-link:focus {
+  outline: 3px solid rgba(14, 90, 71, 0.2);
+  outline-offset: 2px;
+}
+
+.search-form button {
+  border: 0;
+  border-radius: 16px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #f8f4ef;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.message {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+}
+
+.message.neutral {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
+}
+
+.message.success {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.message.error {
+  background: #f5d6d1;
+  color: #7a1d16;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  background: rgba(255, 252, 246, 0.92);
+  box-shadow: var(--shadow);
+}
+
+.card-topline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rank {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(14, 90, 71, 0.09);
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.scores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.scores div {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.scores dt {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scores dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.result-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent-strong);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero {
+    padding: 22px;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .scores {
+    grid-template-columns: 1fr;
+  }
+}

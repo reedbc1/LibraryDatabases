@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Library Database Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Proof of Concept</p>
+      <h1>Hybrid search for subscription databases</h1>
+      <p class="lede">
+        Enter a query to rank every database using semantic similarity from FAISS plus BM25 keyword matching.
+      </p>
+
+      <form class="search-form" method="get" action="{{ url_for('index') }}">
+        <label class="sr-only" for="query">Search query</label>
+        <input
+          id="query"
+          name="query"
+          type="text"
+          value="{{ query }}"
+          placeholder="Try: cookbooks, legal forms, business research"
+          autocomplete="off"
+          required
+        >
+        <button type="submit">Search</button>
+      </form>
+
+      {% if error %}
+        <div class="message error">{{ error }}</div>
+      {% elif query %}
+        <div class="message success">Showing {{ result_count }} ranked results for “{{ query }}”.</div>
+      {% else %}
+        <div class="message neutral">Submit a query to rank all databases from most relevant to least relevant.</div>
+      {% endif %}
+    </section>
+
+    {% if results %}
+      <section class="results">
+        {% for result in results %}
+          <article class="card">
+            <div class="card-topline">
+              <span class="rank">#{{ result.rank }}</span>
+              {% if result.resource_type %}
+                <span class="pill">{{ result.resource_type }}</span>
+              {% endif %}
+            </div>
+
+            <h2>{{ result.title }}</h2>
+
+            {% if result.description %}
+              <p class="description">{{ result.description }}</p>
+            {% endif %}
+
+            <dl class="scores">
+              <div>
+                <dt>Hybrid</dt>
+                <dd>{{ result.hybrid_score }}</dd>
+              </div>
+              <div>
+                <dt>Semantic</dt>
+                <dd>{{ result.semantic_score }}</dd>
+              </div>
+              <div>
+                <dt>Keyword</dt>
+                <dd>{{ result.keyword_score }}</dd>
+              </div>
+            </dl>
+
+            {% if result.link %}
+              <a class="result-link" href="{{ result.link }}" target="_blank" rel="noreferrer">Open database</a>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>
